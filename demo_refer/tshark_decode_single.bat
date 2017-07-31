@@ -1,1 +1,0 @@
-tshark -R "http.request or http.response"   -2 -T fields -E separator="|"   -e http.host -e http.request.uri  -e http.referer   -e http.location  -r 166142c543f08f75967923685c8834f4.pcap

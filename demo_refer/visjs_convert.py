@@ -32,6 +32,9 @@ def main():
             line = line.replace('http://', '', 1).replace('https://', '', 1)
             host, uri, ref, location = line.strip().split('|')
             if not ref and not location:
+                #nfm-hb.cn|/show/detail/985441/15394||
+                #|||http://wzhyzx.cn/show/detail/985441/15394
+                prev_info = (host, uri, ref, location)
                 continue
                         
             ref_host, sep, ref_uri = ref.partition('/')
