@@ -5,7 +5,7 @@ def main():
     -e http.host -e http.request.uri   -e http.referer  -e http.location
    ww.c5.ybosrcqo.us|/|
    www.msltb.com|/addons/theme/images/tavd.jpg|http://www.msltb.com/addons/moban1.asp?id=a1-14754&abn=&xxf=0
-    
+
     var nodes = new vis.DataSet([
     {id: '1', label: 'Node 1'},
     {id: 2, label: 'Node 2'},
@@ -21,8 +21,8 @@ def main():
     {from: 2, to: 4},
     {from: 2, to: 5},
     {from: 3, to: 3}
-  ]);    
-    
+  ]);
+
     '''
     nodes = {}
     edges = set()
@@ -36,10 +36,10 @@ def main():
                 #|||http://wzhyzx.cn/show/detail/985441/15394
                 prev_info = (host, uri, ref, location)
                 continue
-                        
+
             ref_host, sep, ref_uri = ref.partition('/')
             ref_uri = sep + ref_uri
-            
+
             if location:
                 #others must be empty
                 #www.tjhuajiantang.com|/?id=a1-14754&xxf=0|http://syndication.exoclick.com/splash.php?cat=&idzone=2140479&type=8&p=http%3A%2F%2Fxlxtube.com%2F&sub=|  this contains the prev_info
@@ -48,25 +48,25 @@ def main():
                     ref_host, ref_uri, host, uri = prev_info
                 except:
                     continue
-                
+
                 #need to overwrite host, uri by location
                 host, sep, uri = location.partition('/')
                 uri = sep + uri
-                
+
             nodes[host] = 'host'
             nodes[uri] = 'uri'
             nodes[ref_host] = 'ref_host'
             nodes[ref_uri] = 'ref_uri'
-            
+
             if not location:
                 prev_info = (host, uri, ref_host, ref_uri)
             else:
                 prev_info = ()
-            
+
             edges.add((host, uri))
             edges.add((ref_host, ref_uri))
             edges.add((ref_uri, uri))
-                                    
+
     print("""
     <!doctype html>
     <html>
@@ -96,25 +96,25 @@ def main():
       // create an array with nodes
       var nodes = new vis.DataSet([
     """)
-            
+
     for key, value in nodes.items():
         if value == 'host':
             print('{id: "%s", label: "%s", shape: "box", color:"#FB7E81"},'%(key, key))
         elif value == 'ref_host':
             print('{id: "%s", label: "%s", shape: "circle", color:"#FFFF00"},'%(key, key))
         else:
-            print('{id: "%s", label: "%s"},'%(key, key)) 
-    
+            print('{id: "%s", label: "%s"},'%(key, key))
+
     print("""
      ]);
 
   // create an array with edges
   var edges = new vis.DataSet([
     """)
-    
+
     for start, end in edges:
         print('{from:"%s", to:"%s", arrows:"to"},'%(start, end))
-    
+
     print("""
         ]);
 
@@ -132,8 +132,8 @@ def main():
     </body>
     </html>
     """)
-        
-      
-        
+
+
+
 if __name__ == "__main__":
     main()
